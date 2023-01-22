@@ -5,7 +5,7 @@ defmodule Typelixir.MixProject do
     [
       app: :typelixir,
       version: "0.1.0",
-      elixir: "~> 1.10.0",
+      elixir: "~> 1.14.3",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
@@ -36,7 +36,7 @@ defmodule Typelixir.MixProject do
 
   defp description do
     """
-    Library to compile Elixir statically. 
+    Library to compile Elixir statically.
     """
   end
 end

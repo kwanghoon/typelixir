@@ -1,6 +1,6 @@
 defmodule Typelixir do
   @moduledoc false
-  
+
   require Typelixir.Utils
   alias Typelixir.{FunctionsExtractor, Processor}
 
@@ -25,18 +25,20 @@ defmodule Typelixir do
     end
   end
 
-  defp pre_compile_files(paths) do      
-    Enum.reduce(paths, %{results: [], functions: %{}}, fn path, acc -> 
+  defp pre_compile_files(paths) do
+    Enum.reduce(paths, %{results: [], functions: %{}}, fn path, acc ->
+      IO.puts "pre_compile_files: "
+      IO.puts ( path )
       result = FunctionsExtractor.extract_functions_file(path, %{@env | functions: acc[:functions]})
 
-      %{acc | 
-        functions: Map.merge(acc[:functions], result[:functions]), 
+      %{acc |
+        functions: Map.merge(acc[:functions], result[:functions]),
         results: acc[:results] ++ [{"#{path}", result[:state], result[:data]}]}
     end)
   end
 
   defp compile_files(paths, env_functions) do
-    Enum.reduce(paths, [], fn path, acc -> 
+    Enum.reduce(paths, [], fn path, acc ->
       result = Processor.process_file(path, %{@env | functions: env_functions})
       acc ++ [{"#{path}", result[:state], result[:data]}]
     end)
