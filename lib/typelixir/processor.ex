@@ -136,6 +136,8 @@ defmodule Typelixir.Processor do
       _ ->
         return_type = env[:functions][env[:prefix]][fn_key] |> elem(0)
         param_type_list = env[:functions][env[:prefix]][fn_key] |> elem(1)
+        # IO.puts(inspect(function_name) <> "'s parms and param_type_list : " <> inspect(params) <> " , " <> inspect(param_type_list))
+        # IO.puts(inspect(Enum.zip(params || [], param_type_list)))
         params_vars = PatternBuilder.vars(params || [], param_type_list)
 
         case params_vars do
@@ -478,7 +480,7 @@ defmodule Typelixir.Processor do
             :error -> {:halt, {:any, result}}
             _ ->
               case TypeComparator.supremum(result[:type], type_acc) do
-                :error -> {:halt, Utils.return_error(elem, env, {"", "Malformed type list"})} # line? :(
+                :error -> {:halt, Utils.return_error(elem, env, {"", "Malformed type list"})} # Todo: line? :(
                 type -> {:cont, {type, elem(Utils.return_merge_vars([], env_acc, result[:vars]), 1)}}
               end
           end

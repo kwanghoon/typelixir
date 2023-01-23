@@ -26,7 +26,7 @@ Only homogeneous lists are allowed, like the following ones:
 For maps, all keys must have the same type but each value can have its own type:
 
 ```elixir
-%{:age => 12, name: "John" }   # map with atom keys
+%{:age => 12, :name "John" }   # map with atom keys
 %{1 => 12, name: => "John" }   # wrong
 ```
 

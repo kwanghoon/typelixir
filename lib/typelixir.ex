@@ -27,8 +27,7 @@ defmodule Typelixir do
 
   defp pre_compile_files(paths) do
     Enum.reduce(paths, %{results: [], functions: %{}}, fn path, acc ->
-      IO.puts "pre_compile_files: "
-      IO.puts ( path )
+      IO.puts ( "pre_compile_files: " <> path )
       result = FunctionsExtractor.extract_functions_file(path, %{@env | functions: acc[:functions]})
 
       %{acc |
